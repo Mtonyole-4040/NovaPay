@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NovaPay – Biometric Payments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- WELCOME -->
+    <section id="screen-welcome" class="screen visible">
+      <div class="card auth-card">
+        <div class="badge">TecStorm’26</div>
+        <h1 class="brand">NovaPay</h1>
+        <p class="muted">
+          Biometric payments without limits.
+        </p>
+        <div class="spacer-18"></div>
+        <button id="btnGetStarted" class="btn primary">Get Started</button>
+        <p class="tiny muted center mt8">Prototype demo (web)</p>
+      </div>
+    </section>
+
+    <!-- AUTH CHOICE -->
+    <section id="screen-auth-choice" class="screen hidden">
+      <div class="card auth-card">
+        <h2 class="title">Welcome to NovaPay</h2>
+        <p class="muted">Choose how you want to continue.</p>
+        <div class="spacer-14"></div>
+        <button id="btnNewUser" class="btn primary">I'm a new user</button>
+        <button id="btnExistingUser" class="btn ghost">I already have an account</button>
+        <div class="divider"></div>
+        <button id="btnResetDemo" class="btn danger">Reset demo data</button>
+      </div>
+    </section>
+
+    <!-- TERMS -->
+    <section id="screen-terms" class="screen hidden">
+      <div class="card auth-card">
+        <h2 class="title">Terms & Conditions</h2>
+        <p class="muted small">
+          • NovaPay is a hackathon prototype demo.<br/>
+          • Do not enter real banking/mobile money credentials.<br/>
+          • Demo data is stored only in your browser.
+        </p>
+        <div class="spacer-14"></div>
+        <button id="btnAcceptTerms" class="btn primary">I Agree & Continue</button>
+        <button id="btnBackToChoice1" class="btn ghost mt8">Back</button>
+      </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="screen-register" class="screen hidden">
+      <div class="card auth-card">
+        <h2 class="title">Create NovaPay ID</h2>
+        <p class="muted small">Enter your details to continue.</p>
+
+        <label class="field-label">Full Name</label>
+        <input id="regFullName" class="input" placeholder="e.g. Saraphina Mtonyole" />
+
+        <label class="field-label">NIDA Number</label>
+        <input id="regNida" class="input" placeholder="Your NIDA ID" />
+
+        <label class="field-label">Email</label>
+        <input id="regEmail" class="input" placeholder="you@example.com" />
+
+        <label class="field-label">Phone Number</label>
+        <input id="regPhone" class="input" placeholder="+255..." />
+
+        <div class="spacer-10"></div>
+        <button id="btnGoBiometricEnroll" class="btn primary">Next: Enroll Biometrics</button>
+        <button id="btnBackToChoice2" class="btn ghost mt8">Back</button>
+      </div>
+    </section>
+
+    <!-- BIOMETRIC ENROLL -->
+    <section id="screen-bio-enroll" class="screen hidden">
+      <div class="card auth-card">
+        <h2 class="title">Enroll Biometrics</h2>
+        <p class="muted small">
+          No PINs. No passwords. Tap to simulate Face ID / Fingerprint enrollment.
+        </p>
+
+        <div class="bio-row">
+          <button id="enrollFaceBtn" class="bio-btn">
+            <div class="bio-icon face"></div>
+            <div class="bio-text">Face ID</div>
+            <div class="bio-sub">Tap to scan</div>
+            <div class="sparkles"></div>
+          </button>
+
+          <button id="enrollFingerBtn" class="bio-btn">
+            <div class="bio-icon finger"></div>
+            <div class="bio-text">Fingerprint</div>
+            <div class="bio-sub">Tap to scan</div>
+            <div class="sparkles"></div>
+          </button>
+        </div>
+
+        <div id="bioEnrollStatus" class="bio-status">Tap one option to enroll…</div>
+      </div>
+    </section>
+
+    <!-- BIOMETRIC LOGIN -->
+    <section id="screen-bio-login" class="screen hidden">
+      <div class="card auth-card">
+        <h2 class="title">Login</h2>
+        <p class="muted small">
+          Authenticate with biometrics (simulated) to access NovaPay.
+        </p>
+
+        <div class="bio-row">
+          <button id="loginFaceBtn" class="bio-btn">
+            <div class="bio-icon face"></div>
+            <div class="bio-text">Face ID</div>
+            <div class="bio-sub">Tap to scan</div>
+            <div class="sparkles"></div>
+          </button>
+
+          <button id="loginFingerBtn" class="bio-btn">
+            <div class="bio-icon finger"></div>
+            <div class="bio-text">Fingerprint</div>
+            <div class="bio-sub">Tap to scan</div>
+            <div class="sparkles"></div>
+          </button>
+        </div>
+
+        <div id="bioLoginStatus" class="bio-status">Tap to authenticate…</div>
+        <button id="btnBackToChoice3" class="btn ghost mt8">Back</button>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="screen-dashboard" class="screen hidden screen-dashboard">
+      <header class="topbar">
+        <div class="top-left">
+          <div class="logo-dot"></div>
+          <div>
+            <div class="top-title">NovaPay</div>
+            <div class="top-sub" id="userNameTop">User</div>
+          </div>
+        </div>
+        <button id="btnLogout" class="top-logout">Logout</button>
+      </header>
+
+      <main class="content">
+
+        <div class="id-card">
+          <div>
+            <div class="id-label">NovaPay Digital ID</div>
+            <div class="id-value" id="idValue">NP-0000</div>
+            <div class="id-sub" id="idSub">Biometric-linked wallet</div>
+          </div>
+          <div class="id-right">
+            <div class="id-balance-label">Total Wallet Balance</div>
+            <div class="id-balance" id="totalBalance">TSh 0</div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="wallets">Wallets</button>
+          <button class="tab" data-tab="budgets">Budgets</button>
+          <button class="tab" data-tab="goals">Goals</button>
+          <button class="tab" data-tab="reports">Reports</button>
+          <button class="tab" data-tab="scan">Scan & Send</button>
+        </div>
+
+        <!-- WALLETS -->
+        <section id="tab-wallets" class="tab-panel">
+          <h2 class="section-title">Wallets</h2>
+          <div id="walletList" class="list"></div>
+
+          <div class="subcard">
+            <h3 class="section-subtitle">Add Wallet</h3>
+            <p class="muted tiny">Link as many wallets/banks as you want.</p>
+            <input id="walletNameInput" class="input" placeholder="Wallet name (M-Pesa, CRDB, NMB…)" />
+            <input id="walletBalanceInput" class="input" placeholder="Starting balance (TSh)" />
+            <button id="btnAddWallet" class="btn primary small-btn">Add Wallet</button>
+          </div>
+        </section>
+
+        <!-- BUDGETS -->
+        <section id="tab-budgets" class="tab-panel hidden">
+          <h2 class="section-title">Budgets</h2>
+          <p class="muted tiny">Unlimited budgeting categories for real life.</p>
+          <div id="budgetList" class="list"></div>
+
+          <div class="subcard">
+            <h3 class="section-subtitle">Add Budget</h3>
+            <input id="budgetNameInput" class="input" placeholder="Budget name (Food, Transport…)" />
+            <input id="budgetAmountInput" class="input" placeholder="Amount (TSh)" />
+            <input id="budgetTypeInput" class="input" placeholder="Type (Monthly, Weekly…)" />
+            <button id="btnAddBudget" class="btn primary small-btn">Save Budget</button>
+          </div>
+        </section>
+
+        <!-- GOALS -->
+        <section id="tab-goals" class="tab-panel hidden">
+          <h2 class="section-title">Goals</h2>
+          <p class="muted tiny">Set goals and track progress over time.</p>
+          <div id="goalList" class="list"></div>
+		  <div class="subcard">
+  <h3 class="section-subtitle">Fund a Goal</h3>
+  <p class="muted tiny">Choose a goal, choose a wallet, and add an amount.</p>
+
+  <label class="field-label">Select Goal</label>
+  <select id="goalSelect" class="input"></select>
+
+  <label class="field-label">Pay From Wallet</label>
+  <select id="goalFromSelect" class="input"></select>
+
+  <label class="field-label">Amount (TSh)</label>
+  <input id="goalFundAmount" class="input" placeholder="e.g. 20000" />
+
+  <button id="btnFundGoal" class="btn primary small-btn">Add to Goal</button>
+  <div id="goalFundStatus" class="muted tiny mt8"></div>
+</div>
+
+
+          <div class="subcard">
+            <h3 class="section-subtitle">Add Goal</h3>
+            <input id="goalNameInput" class="input" placeholder="Goal name (School fees, Business…)" />
+            <input id="goalTargetInput" class="input" placeholder="Target amount (TSh)" />
+            <button id="btnAddGoal" class="btn primary small-btn">Save Goal</button>
+          </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section id="tab-reports" class="tab-panel hidden">
+		<div class="subcard">
+  <h3 class="section-subtitle">Export</h3>
+  <p class="muted tiny">Download budgets, goals & wallets as CSV.</p>
+  <button id="btnDownloadReport" class="btn primary small-btn">Download Report (CSV)</button>
+  <div id="downloadStatus" class="muted tiny mt8"></div>
+</div>
+
+          <h2 class="section-title">Reports</h2>
+          <div class="report-card">
+            <div class="report-row">
+              <span>Total Budgets</span>
+              <strong id="reportsTotalBudget">TSh 0</strong>
+            </div>
+            <div class="report-row">
+              <span>Goals Progress</span>
+              <strong id="reportsGoalProgress">TSh 0 / 0</strong>
+            </div>
+          </div>
+
+          <div class="subcard">
+            <h3 class="section-subtitle">Insights (Demo)</h3>
+            <ul class="insights">
+              <li id="insight1"></li>
+              <li id="insight2"></li>
+              <li id="insight3"></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- SCAN & SEND -->
+        <section id="tab-scan" class="tab-panel hidden">
+          <h2 class="section-title">Scan & Send</h2>
+          <p class="muted tiny">
+            Camera QR scanning is simulated for the web demo.
+          </p>
+
+          <div class="scan-box">
+            <div class="scan-frame"></div>
+            <div class="scan-line"></div>
+            <div class="muted tiny center mt8">Scanning… (demo)</div>
+          </div>
+
+          <div class="subcard">
+            <h3 class="section-subtitle">Send Money</h3>
+            <select id="sendFromSelect" class="input"></select>
+            <input id="sendToInput" class="input" placeholder="Recipient phone" />
+            <input id="sendAmountInput" class="input" placeholder="Amount (TSh)" />
+            <button id="btnSendNow" class="btn primary small-btn">Send (Simulated)</button>
+            <div id="sendStatus" class="muted tiny mt8"></div>
+          </div>
+        </section>
+
+      </main>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
